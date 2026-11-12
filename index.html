@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>agens-sh</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #f6f4ef;
+        --fg: #1c1917;
+        --muted: #57534e;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #1c1917;
+          --fg: #f5f5f4;
+          --muted: #a8a29e;
+        }
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+
+      body {
+        display: grid;
+        place-items: center;
+        padding: 2rem;
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--fg);
+      }
+
+      main {
+        max-width: 28rem;
+      }
+
+      h1 {
+        margin: 0 0 0.75rem;
+        font-size: 1.5rem;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+      }
+
+      p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+
+      footer {
+        position: fixed;
+        right: 0;
+        bottom: 1.25rem;
+        left: 0;
+        font-size: 0.75rem;
+        color: var(--muted);
+        text-align: center;
+      }
+
+      a {
+        color: inherit;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>agens-sh</h1>
+      <p>Personal site. Placeholder for now.</p>
+    </main>
+    <footer>
+      <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/"
+        >CC BY-NC-ND 4.0</a
+      >
+    </footer>
+  </body>
+</html>
