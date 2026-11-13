@@ -10,6 +10,7 @@ test("homepage loads", async ({ page }) => {
   const response = await page.goto("/");
   expect(response, "navigation should produce a response").toBeTruthy();
   expect(response.status(), "GET / should be 200").toBe(200);
+  await expect(page).toHaveTitle("agens: tag line here");
   await expect(page.getByRole("heading", { name: /agens/i })).toBeVisible();
   expect(pageErrors, "page should not throw").toEqual([]);
 });
