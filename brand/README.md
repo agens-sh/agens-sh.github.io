@@ -1,6 +1,6 @@
 # agens mark
 
-Lowercase Atkinson Hyperlegible Bold `a` (Braille Institute, SIL Open Font License) converted to paths, centered in a circular arc. The arc is a constant-radius ring and can read as a C. No webfont at render time.
+Lowercase Atkinson Hyperlegible Bold `a` (Braille Institute, SIL Open Font License) converted to paths, centered in a circular arc. The arc is a constant-radius ring, open 28° on the right so it reads as @. No webfont at render time.
 
 | File | |
 |---|---|
