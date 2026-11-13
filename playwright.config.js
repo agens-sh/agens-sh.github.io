@@ -18,7 +18,7 @@ module.exports = defineConfig({
   },
   webServer: {
     command:
-      "mkdir -p _site && cp index.html .nojekyll _site/ && python3 -m http.server 4173 --bind 127.0.0.1 --directory _site",
+      "mkdir -p _site/brand && cp index.html .nojekyll favicon.ico apple-touch-icon.png _site/ && cp brand/*.svg _site/brand/ && python3 -m http.server 4173 --bind 127.0.0.1 --directory _site",
     url: "http://127.0.0.1:4173",
     timeout: 10_000,
     reuseExistingServer: !process.env.CI,
