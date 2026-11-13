@@ -5,8 +5,13 @@ const path = require("path");
 const { chromium } = require("playwright");
 
 const root = path.resolve(__dirname, "..");
-const svg = fs.readFileSync(path.join(root, "brand", "agens-favicon.svg"), "utf8");
-const dataUri = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+function dataUriFor(file) {
+  const svg = fs.readFileSync(path.join(root, "brand", file), "utf8");
+  return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+}
+
+const markUri = dataUriFor("agens-favicon.svg");
+const tileUri = dataUriFor("agens-loud.svg");
 
 function icoFromPngs(pngBuffers) {
   const count = pngBuffers.length;
@@ -33,15 +38,19 @@ function icoFromPngs(pngBuffers) {
   return Buffer.concat([header, ...entries, ...payloads]);
 }
 
-async function rasterize(page, size, dest) {
+async function rasterize(page, size, dest, uri, { opaque }) {
   await page.setViewportSize({ width: size, height: size });
+  const background = opaque ? "#0c0c0c" : "transparent";
   await page.setContent(
-    `<!DOCTYPE html><html><body style="margin:0;background:#0c0c0c">
-      <img src="${dataUri}" width="${size}" height="${size}" alt="">
+    `<!DOCTYPE html><html><body style="margin:0;background:${background}">
+      <img src="${uri}" width="${size}" height="${size}" alt="">
     </body></html>`,
     { waitUntil: "load" },
   );
-  await page.locator("img").screenshot({ path: dest, omitBackground: false });
+  await page.locator("img").screenshot({
+    path: dest,
+    omitBackground: !opaque,
+  });
 }
 
 (async () => {
@@ -51,9 +60,17 @@ async function rasterize(page, size, dest) {
   fs.mkdirSync(tmp, { recursive: true });
   const icoSizes = [16, 32, 48];
   for (const size of icoSizes) {
-    await rasterize(page, size, path.join(tmp, `${size}.png`));
+    await rasterize(page, size, path.join(tmp, `${size}.png`), markUri, {
+      opaque: false,
+    });
   }
-  await rasterize(page, 180, path.join(root, "apple-touch-icon.png"));
+  await rasterize(
+    page,
+    180,
+    path.join(root, "apple-touch-icon.png"),
+    tileUri,
+    { opaque: true },
+  );
   await browser.close();
   const pngs = icoSizes.map((size) => fs.readFileSync(path.join(tmp, `${size}.png`)));
   fs.writeFileSync(path.join(root, "favicon.ico"), icoFromPngs(pngs));
