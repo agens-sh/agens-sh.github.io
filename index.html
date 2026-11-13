@@ -104,12 +104,16 @@
         display: none;
       }
 
-      .burger {
+      .icon {
         display: block;
-        width: 1.15rem;
-        height: 0.125rem;
-        background: var(--fg);
-        box-shadow: 0 -0.35rem 0 var(--fg), 0 0.35rem 0 var(--fg);
+        width: 1.35rem;
+        height: 1.35rem;
+      }
+
+      .icon svg {
+        display: block;
+        width: 100%;
+        height: 100%;
       }
 
       .menu nav {
@@ -142,12 +146,6 @@
         background: transparent;
         color: inherit;
         cursor: pointer;
-      }
-
-      .profile svg {
-        display: block;
-        width: 1.35rem;
-        height: 1.35rem;
       }
 
       .profile:hover::after,
@@ -238,7 +236,21 @@
     <header>
       <details class="menu">
         <summary aria-label="Open menu">
-          <span class="burger" aria-hidden="true"></span>
+          <span class="icon" data-icon="menu" aria-hidden="true">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M4 5h16" />
+              <path d="M4 12h16" />
+              <path d="M4 19h16" />
+            </svg>
+          </span>
         </summary>
         <nav>
           <a href="/">Home</a>
@@ -251,13 +263,21 @@
         data-label="login"
         aria-label="login"
       >
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <circle cx="12" cy="8" r="3.25" fill="currentColor" />
-          <path
-            fill="currentColor"
-            d="M12 13c-4.15 0-7.5 2.22-7.5 4.75V20h15v-2.25C19.5 15.22 16.15 13 12 13z"
-          />
-        </svg>
+        <span class="icon" data-icon="circle-user" aria-hidden="true">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <circle cx="12" cy="10" r="3" />
+            <path d="M7 20.662V19a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v1.662" />
+          </svg>
+        </span>
       </button>
     </header>
     <main>
@@ -293,11 +313,48 @@
       </form>
     </dialog>
     <script>
-      document
-        .getElementById("login-button")
-        .addEventListener("click", function () {
-          document.getElementById("login-dialog").showModal();
+      (function () {
+        var lucide = "https://cdn.jsdelivr.net/npm/lucide-static@1.72.0/icons/";
+        function paint(host, markup) {
+          host.innerHTML = markup;
+          var svg = host.querySelector("svg");
+          if (!svg) {
+            return;
+          }
+          svg.setAttribute("aria-hidden", "true");
+          svg.removeAttribute("width");
+          svg.removeAttribute("height");
+        }
+        document.querySelectorAll(".icon[data-icon]").forEach(function (host) {
+          var name = host.getAttribute("data-icon");
+          fetch(lucide + name + ".svg", { mode: "cors" })
+            .then(function (response) {
+              if (!response.ok) {
+                throw new Error("cdn");
+              }
+              return response.text();
+            })
+            .catch(function () {
+              return fetch("icons/" + name + ".svg").then(function (response) {
+                if (!response.ok) {
+                  throw new Error("local");
+                }
+                return response.text();
+              });
+            })
+            .then(function (markup) {
+              paint(host, markup);
+            })
+            .catch(function () {
+              /* keep the inline Lucide SVG already in the page */
+            });
         });
+        document
+          .getElementById("login-button")
+          .addEventListener("click", function () {
+            document.getElementById("login-dialog").showModal();
+          });
+      })();
     </script>
   </body>
 </html>
