@@ -131,15 +131,41 @@
         border-radius: 0.5rem;
       }
 
-      .login {
-        min-width: var(--tap);
-        min-height: var(--tap);
-        padding: 0 0.85rem;
+      .profile {
+        display: grid;
+        place-items: center;
+        position: relative;
+        width: var(--tap);
+        height: var(--tap);
+        padding: 0;
         border: 0;
         background: transparent;
         color: inherit;
-        font: inherit;
         cursor: pointer;
+      }
+
+      .profile svg {
+        display: block;
+        width: 1.35rem;
+        height: 1.35rem;
+      }
+
+      .profile:hover::after,
+      .profile:focus-visible::after {
+        content: attr(data-label);
+        position: absolute;
+        top: calc(100% - 0.2rem);
+        right: 0.15rem;
+        z-index: 3;
+        padding: 0.3rem 0.5rem;
+        border: 1px solid var(--line);
+        border-radius: 0.4rem;
+        background: var(--panel);
+        color: var(--fg);
+        font-size: 0.75rem;
+        line-height: 1;
+        white-space: nowrap;
+        box-shadow: 0 0.35rem 0.85rem rgba(12, 12, 12, 0.12);
       }
 
       main {
@@ -218,7 +244,21 @@
           <a href="/">Home</a>
         </nav>
       </details>
-      <button type="button" class="login" id="login-button">Login</button>
+      <button
+        type="button"
+        class="profile"
+        id="login-button"
+        data-label="login"
+        aria-label="login"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <circle cx="12" cy="8" r="3.25" fill="currentColor" />
+          <path
+            fill="currentColor"
+            d="M12 13c-4.15 0-7.5 2.22-7.5 4.75V20h15v-2.25C19.5 15.22 16.15 13 12 13z"
+          />
+        </svg>
+      </button>
     </header>
     <main>
       <div class="hero">
