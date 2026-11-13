@@ -206,6 +206,27 @@
         text-align: center;
       }
 
+      footer a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.2rem;
+      }
+
+      .icon-external {
+        width: 0.7rem;
+        height: 0.7rem;
+        opacity: 0.65;
+      }
+
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+      }
+
       dialog {
         width: min(20rem, calc(100vw - 2rem));
         padding: 1.25rem;
@@ -302,9 +323,29 @@
       </div>
     </main>
     <footer>
-      <a rel="license" href="https://creativecommons.org/licenses/by-nc-nd/4.0/"
-        >CC BY-NC-ND 4.0</a
+      <a
+        rel="license noopener"
+        target="_blank"
+        href="https://creativecommons.org/licenses/by-nc-nd/4.0/"
       >
+        CC BY-NC-ND 4.0
+        <span class="icon icon-external" data-icon="external-link" aria-hidden="true">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M15 3h6v6" />
+            <path d="M10 14 21 3" />
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+          </svg>
+        </span>
+        <span class="visually-hidden"> (opens in a new tab)</span>
+      </a>
     </footer>
     <dialog id="login-dialog" aria-labelledby="login-title">
       <p id="login-title">Login is a placeholder for now.</p>
