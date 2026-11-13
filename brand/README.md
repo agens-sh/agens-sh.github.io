@@ -7,7 +7,7 @@ Lowercase Atkinson Hyperlegible Bold `a` (Braille Institute, SIL Open Font Licen
 | `agens-loud.svg` | Fluorescent `#FF4D00` on a near-black rounded tile |
 | `agens-dark.svg` | Restrained light mark, transparent, for dark backgrounds |
 | `agens-light.svg` | Restrained dark mark, transparent, for light backgrounds |
-| `agens-favicon.svg` | Same loud geometry, 32×32 |
+| `agens-favicon.svg` | Enclosed `a` only, `#FF4D00` on transparent, 32×32 (tab icon) |
 | `agens-favicon-dark.svg` | Same light mark, 32×32, transparent |
 | `agens-favicon-light.svg` | Same dark mark, 32×32, transparent |
 | `agens-wordmark.svg` | Mark plus `agens`, for light backgrounds |
